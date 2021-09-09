@@ -1,0 +1,35 @@
+//Задание 3: написать программу, реализующую создание массива произвольного размера, вводимого с клавиатуры.
+#include <iostream>
+#include <ctime>
+#include <malloc.h>
+#include <string>
+#include <windows.h>
+
+using namespace std;
+
+int Mass1[10], Max, Min; //Задание 1
+int Mass2[10]; //Задание 2
+int n, * p = NULL; //Задание 3
+int Mass3[10][10], x = 10, y = 10, Sum = 0; //Задание 4
+
+struct student { //Задание 5
+	string Name, Surname, Group;
+	int Curse, TicketNum;
+} StudentList[5], StudentText;
+
+int choose;
+
+int main() {
+
+	setlocale(LC_ALL, "Russian");
+	srand(time(0));
+
+	cout << "\nВведите размерность массива: ";
+	cin >> n;
+	cout << "Массив: ";
+	p = (int*)calloc(n, 2);
+	for (int i = 0; i < n; i++) {
+		*(p + i) = 1 + rand() % 100;
+		cout <<* (p + i) << " ";
+	}
+}
