@@ -7,7 +7,7 @@
 
 using namespace std;
 
-int Mass1[10], Max, Min; //Задание 1
+int Mass1[10], Max, Min; //Задание 1//
 int Mass2[10]; //Задание 2
 int n, * p = NULL; //Задание 3
 int Mass3[10][10], x = 10, y = 10, Sum = 0; //Задание 4
