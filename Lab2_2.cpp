@@ -5,7 +5,7 @@ using namespace std;
 
 int Mass[20] = { 40,23,3,6,84,12,1,78,79,34,23,14,45,76,78,98,73,12,31,26 }, chis = 20;
 int time2, time3;
-
+int Mass1[20] = { 40,23,3,6,84,12,1,78,79,34,23,14,45,76,78,98,73,12,31,26 };
 
 void shell(int* items, int count) {
     int i, j, gap, k;
@@ -58,7 +58,7 @@ int main()
     cout.precision(20);
     cout << (float)time2 / CLOCKS_PER_SEC << endl;
 
-    qs(Mass, 0, chis - 1);
+    qs(Mass1, 0, chis - 1);
     time3 = clock();
     cout << "Work time 2: " << ((float)time3 - (float)time2) / CLOCKS_PER_SEC << endl;
 
