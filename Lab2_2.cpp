@@ -1,13 +1,20 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#include <string>
+#include <fstream>
 #include <iostream>
-#include <time.h>
+#include <windows.h>
 
 using namespace std;
 
-int Mass[20] = { 40,23,3,6,84,12,1,78,79,34,23,14,45,76,78,98,73,12,31,26 }, chis = 20;
+int Mass[20], chis = 20;
 int time2, time3;
-int Mass1[20] = { 40,23,3,6,84,12,1,78,79,34,23,14,45,76,78,98,73,12,31,26 };
+FILE* ANTON;
+int a;
 
-void shell(int* items, int count) {
+//Сортировка Шелла по возрастанию
+void shell(int* items, int count) { 
     int i, j, gap, k;
     int x, a[5];
 
@@ -17,7 +24,6 @@ void shell(int* items, int count) {
         gap = a[k];
         for (i = gap; i < count; ++i) {
             x = items[i];
-            //cout << "@@@" << endl;
             for (j = i - gap; (x < items[j]) && (j >= 0); j = j - gap) {
                 items[j + gap] = items[j];
                 items[j + gap] = x;
@@ -25,7 +31,7 @@ void shell(int* items, int count) {
         }
     }
 }
-
+//Быстрая сортировка
 void qs(int* items, int left, int right) {
     int i, j;
     int x, y;
@@ -52,13 +58,31 @@ void qs(int* items, int left, int right) {
 
 int main()
 {
+    setlocale(LC_ALL, "Russian");
+
+    cout << "Выберите тип массива: " << endl;
+   
+    cout << "1)Рандомный " << endl;
+    cout << "2)Возрастающий " << endl;
+    cout << "3)Убывающий " << endl;
+    cout << "4)1/2 возрастающий, 1/2 убывающий " << endl;
+    cout << "5)1/2 убывающий, 1/2 возрастающий " << endl;
+    cin >> a;
+    ANTON = fopen("file.txt", "r");
+    fseek(ANTON, 62*(a-1), SEEK_SET);//62 - среднее к-во символов в строке
+
+    for (int i = 0; i < 20; i++) {
+        fscanf(ANTON, "%d", &Mass[i]);
+        cout << Mass[i] << " ";
+    }
     shell(Mass, chis);
+    cout << "\n";
     time2 = clock();
     cout << "Work time 1: ";
-    cout.precision(20);
+    cout.precision(20);//вывод доп знаков
     cout << (float)time2 / CLOCKS_PER_SEC << endl;
 
-    qs(Mass1, 0, chis - 1);
+    qs(Mass, 0, chis - 1);
     time3 = clock();
     cout << "Work time 2: " << ((float)time3 - (float)time2) / CLOCKS_PER_SEC << endl;
 
