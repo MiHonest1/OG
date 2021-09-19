@@ -1,6 +1,6 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<time.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include <string>
 #include <fstream>
 #include <iostream>
@@ -14,7 +14,7 @@ FILE* ANTON;
 int a;
 
 //Сортировка Шелла по возрастанию
-void shell(int* items, int count) { 
+void shell(int* items, int count) {
     int i, j, gap, k;
     int x, a[5];
 
@@ -60,16 +60,15 @@ int main()
 {
     setlocale(LC_ALL, "Russian");
 
-    cout << "Выберите тип массива: " << endl;
-   
     cout << "1)Рандомный " << endl;
     cout << "2)Возрастающий " << endl;
     cout << "3)Убывающий " << endl;
     cout << "4)1/2 возрастающий, 1/2 убывающий " << endl;
     cout << "5)1/2 убывающий, 1/2 возрастающий " << endl;
+    cout << "Выберите тип массива: ";
     cin >> a;
     ANTON = fopen("file.txt", "r");
-    fseek(ANTON, 62*(a-1), SEEK_SET);//62 - среднее к-во символов в строке
+    fseek(ANTON, 62*(a-1), SEEK_SET);
 
     for (int i = 0; i < 20; i++) {
         fscanf(ANTON, "%d", &Mass[i]);
