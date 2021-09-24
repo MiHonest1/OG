@@ -1,62 +1,76 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<time.h>
+#include <string>
+#include <fstream>
+#include <iostream>
+#include <conio.h>
+using namespace std;
 
 int main(void)
 {
 	setvbuf(stdin, NULL, _IONBF, 0);
 	setvbuf(stdout, NULL, _IONBF, 0);
-	clock_t start = clock(); // объявляем переменные для определения времени выполнения
+	setlocale(LC_ALL, "Rus");
+	clock_t start = clock(); // РѕР±СЉСЏРІР»СЏРµРј РїРµСЂРµРјРµРЅРЅС‹Рµ РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ РІСЂРµРјРµРЅРё РІС‹РїРѕР»РЅРµРЅРёСЏ
+	//clock() - СЌС‚Рѕ РєРѕРјР°РЅРґР°, РІРѕР·РІСЂР°С‰Р°СЋС‰Р°СЏ РєРѕР»-РІРѕ С‚РёРєРѕРІ Р·Р° РѕРїСЂРµРґРµР»РµРЅРЅС‹Р№ РїСЂРѕРјРµР¶СѓС‚РѕРє РїСЂРѕРіСЂР°РјРјС‹
 	int i = 0, j = 0, r;
-	int a[100][100], b[100][100], c[100][100], elem_c;
-	srand(time(NULL)); // инициализируем параметры генератора случайных чисел
-	while (i < 100)
+	int a[21][21], b[21][21], c[21][21], elem_c;
+
+	srand(time(NULL)); // РёРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РїР°СЂР°РјРµС‚СЂС‹ РіРµРЅРµСЂР°С‚РѕСЂР° СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР»
+
+	while (i < 20)
 	{
-		while (j < 100)
+		while (j < 20)
 		{
-			a[i][j] = rand() % 100 + 1; // заполняем массив случайными числами
+			a[i][j] = 1 + rand() % 100; // Р·Р°РїРѕР»РЅСЏРµРј РјР°СЃСЃРёРІ СЃР»СѓС‡Р°Р№РЅС‹РјРё С‡РёСЃР»Р°РјРё
+			cout<<a[i][j]<<" ";
 			j++;
 		}
 		i++;
+		j = 0;
+		cout<<endl;
 	}
-	srand(time(NULL)); // инициализируем параметры генератора случайных чисел
+
 	i = 0; j = 0;
-	while (i < 100)
+	cout<<endl;
+	while (i < 20)
 	{
-		while (j < 100)
+		while (j < 20)
 		{
-			b[i][j] = rand() % 100 + 1; // заполняем массив случайными числами
+			b[i][j] = 1 + rand() % 100; // Р·Р°РїРѕР»РЅСЏРµРј РјР°СЃСЃРёРІ СЃР»СѓС‡Р°Р№РЅС‹РјРё С‡РёСЃР»Р°РјРё
+			cout<<b[i][j]<<" ";
 			j++;
 		}
 		i++;
+		j = 0;
+		cout<<endl;
 	}
-	for (i = 0; i < 100; i++)
+	//РџРµСЂРµРјРЅРѕР¶РµРЅРёРµ РјР°С‚СЂРёС†
+	clock_t start2 = clock(); // РѕР±СЉСЏРІР»СЏРµРј РїРµСЂРµРјРµРЅРЅС‹Рµ РґР»СЏ РѕРїСЂРµРґРµР»РµРЅРёСЏ РІСЂРµРјРµРЅРё РІС‹РїРѕР»РЅРµРЅРёСЏ
+	cout<<endl;
+	getch();
+	for (i = 0; i < 20; i++)
 	{
-		for (j = 0; j < 100; j++)
+		for (j = 0; j < 20; j++)
 		{
 			elem_c = 0;
-			for (r = 0; r < 100; r++)
+			for (r = 0; r < 20; r++)
 			{
 				elem_c = elem_c + a[i][r] * b[r][j];
 				c[i][j] = elem_c;
-
 			}
-		}
-
-
-	}
-	for (i = 0; i < 100; i++) {
-
-		for (j = 0; j < 100; j++) {
-
 			printf("%d ", c[i][j]);
-
 		}
 		printf("\n");
 	}
 
-	clock_t end = clock();
-	double seconds = (double)(end - start) / CLOCKS_PER_SEC;
-	printf("Vremya: %f secunds\n", seconds);
+	clock_t end = clock();//РІС‚РѕСЂР°СЏ РІСЂРµРјРµРЅРЅР°СЏ РјРµС‚РєР°
+	double seconds = (double)(end - start) / CLOCKS_PER_SEC;//РёР·РЅР°С‡Р°Р»СЊРЅРѕ СЌС‚Р° РѕРїРµСЂР°С†РёСЏ С†РµР»РѕС‡РёСЃР»РµРЅРЅР°СЏ, РЅРѕ СЃ РїРѕРјРѕС‰СЊСЋ (double) РјС‹ РґРµР»Р°РµРј РµС‘ СЃ РїР»Р°РІР°СЋС‰РµР№ С‚РѕС‡РєРѕР№
+	double seconds2 = (double)(end - start2) / CLOCKS_PER_SEC;
+	printf("Р’СЂРµРјСЏ: %f СЃРµРє\n", seconds);
+	printf("Р’СЂРµРјСЏ(РЈРјРЅРѕР¶РµРЅРёРµ): %f СЃРµРє\n", seconds2);
+	getch();
 	return(0);
 }
+
