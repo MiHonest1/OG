@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <windows.h>
+#include <conio.h>
 
 using namespace std;
 
@@ -14,7 +15,7 @@ FILE* ANTON;
 int a;
 
 //Сортировка Шелла по возрастанию
-void shell(int* items, int count) {
+void shell(int* items, int count) {  
     int i, j, gap, k;
     int x, a[5];
 
@@ -67,23 +68,27 @@ int main()
     cout << "5)1/2 убывающий, 1/2 возрастающий " << endl;
     cout << "Выберите тип массива: ";
     cin >> a;
-    ANTON = fopen("file.txt", "r");
-    fseek(ANTON, 62*(a-1), SEEK_SET);
 
+    ANTON = fopen("file.txt", "r");
+    fseek(ANTON, 60*(a-1), SEEK_SET);
     for (int i = 0; i < 20; i++) {
         fscanf(ANTON, "%d", &Mass[i]);
         cout << Mass[i] << " ";
     }
+
     shell(Mass, chis);
     cout << "\n";
     time2 = clock();
     cout << "Work time 1: ";
-    cout.precision(20);//вывод доп знаков
+    cout.precision(20);
     cout << (float)time2 / CLOCKS_PER_SEC << endl;
 
     qs(Mass, 0, chis - 1);
     time3 = clock();
     cout << "Work time 2: " << ((float)time3 - (float)time2) / CLOCKS_PER_SEC << endl;
+	fclose(ANTON);
+	getch();
 
     return 0;
 }
+
