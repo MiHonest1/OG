@@ -13,7 +13,7 @@ int time2, time3;
 FILE* ANTON;
 int a;
 
-//Сортировка Шелла по возрастанию
+//Сортировка Шелла
 void shell(int* items, int count) {
     int i, j, gap, k;
     int x, a[5];
