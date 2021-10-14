@@ -2,31 +2,172 @@
 #include <ctime>
 #include <malloc.h>
 #include <conio.h>
+#include <string.h>
 
 using namespace std;
 
-int n, ** Matrix1 = NULL, ** Matrix2 = NULL;
+int n, ** Matrix1 = NULL;
 int pogr = 0, dopo = 0;
 
 int choose = 0, ** Matrix3 = NULL, usrentr = 0, usrentr2 = 0;
+
+void Otogdestvlenie() {
+
+	if (n == 0) { return; } //–ù–µ–ª—å–∑—è –æ—Ç–æ–∂–¥–µ—Å—Ç–≤–∏—Ç—å –º–∞—Ç—Ä–∏—Ü—É 1 –Ω–∞ 1
+
+	Matrix3 = (int**)calloc(n, 3);
+	pogr = 0;
+
+	for (int j = 0; j < n; j++) { Matrix3[j] = (int*)calloc(n, 3); }
+
+	for (int i = 0; i < n; i++) {
+		for (int m = 0; m < n; m++) { Matrix3[i][m] = 2; Matrix3[m][m] = 0; }
+	}
+
+	cout << "–í–≤–µ–¥–∏—Ç–µ –Ω–æ–º–µ—Ä–∞ –æ—Ç–æ–∂–¥–µ—Å—Ç–≤–ª—è–µ–º—ã—Ö –≤–µ—Ä—à–∏–Ω: \n";
+	cout << "–ü–µ—Ä–≤–∞—è: ";
+	cin >> usrentr;
+	cout << "–í—Ç–æ—Ä–∞—è: ";
+	cin >> usrentr2;
+	usrentr--;
+	usrentr2--;
+
+	n++; //–í–æ–∑–≤—Ä–∞—â–∞–µ–º n –¥–æ –Ω–æ—Ä–º–∞–ª—å–Ω–æ–≥–æ(–±–æ–ª—å—à–µ–≥–æ –Ω–∞ 1) –∑–Ω–∞—á–µ–Ω–∏—è –º–∞—Ç—Ä–∏—Ü—ã
+
+	for (int j = 0; j < n; j++) { Matrix1[usrentr][j] = Matrix1[usrentr2][j]; Matrix1[j][usrentr] = Matrix1[usrentr2][j]; } //–¶–∏–∫–ª –¥–ª—è –ø–µ—Ä–µ–Ω–æ—Å–∫–∏ –∑–Ω–∞—á–µ–Ω–∏–π –≤ –Ω—É–∂–Ω—É—é –≤–µ—Ä—à–∏–Ω—É
+
+	for (int i = 0; i < n; i++) {
+		for (int m = 0 + pogr; m < n; m++) {
+			if (i == m || i == usrentr2 || m == usrentr2) {}
+			else if (m > usrentr2 && i < usrentr2) { Matrix3[i][m - 1] = Matrix1[i][m]; Matrix3[m - 1][i] = Matrix1[m][i]; }
+			else if (m > usrentr2 && i > usrentr2) { Matrix3[i - 1][m - 1] = Matrix1[i][m]; Matrix3[m - 1][i - 1] = Matrix1[i][m]; }
+			else { Matrix3[i][m] = Matrix1[i][m]; Matrix3[m][i] = Matrix1[m][i]; }
+		}
+		pogr++;
+	}
+	cout << endl;
+
+	n--; //–£–º–µ–Ω—å—à–∞–µ–º n –¥–ª—è –≤–∑–∞–∏–º–æ–¥–µ–π—Å—Ç–≤–∏—è —Å–æ —Å—Ç–∞—Ä–æ–π –º–∞—Ç—Ä–∏—Ü–µ–π(–Ω–∞ n-1 –∏ n-1)
+
+	Matrix1 = (int**)calloc(n, 3);
+	for (int j = 0; j < n; j++) { Matrix1[j] = (int*)calloc(n, 3); }
+
+	for (int i = 0; i < n; i++) {
+		for (int m = 0; m < n; m++) {
+			Matrix1[i][m] = Matrix3[i][m];
+			Matrix1[m][m] = 0;
+			cout << Matrix1[i][m] << " ";
+		}
+		cout << endl;
+	}
+}
+
+void Stuagivanie() {
+
+	if (n == 0) { return; } //–ù–µ–ª—å–∑—è –æ—Ç–æ–∂–¥–µ—Å—Ç–≤–∏—Ç—å –º–∞—Ç—Ä–∏—Ü—É 1 –Ω–∞ 1
+
+	Matrix3 = (int**)calloc(n, 3);
+	pogr = 0;
+
+	for (int j = 0; j < n; j++) { Matrix3[j] = (int*)calloc(n, 3); }
+
+	for (int i = 0; i < n; i++) {
+		for (int m = 0; m < n; m++) { Matrix3[i][m] = 2; Matrix3[m][m] = 0; }
+		cout << endl;
+	}
+
+	cout << "–í–≤–µ–¥–∏—Ç–µ –Ω–æ–º–µ—Ä–∞ —Å—Ç—è–≥–∏–≤–∞–µ–º—ã—Ö –≤–µ—Ä—à–∏–Ω: \n";
+	cout << "–ü–µ—Ä–≤–∞—è: ";
+	cin >> usrentr;
+	cout << "–í—Ç–æ—Ä–∞—è: ";
+	cin >> usrentr2;
+	usrentr--;
+	usrentr2--;
+
+	n++; //–í–æ–∑–≤—Ä–∞—â–∞–µ–º n –¥–æ –Ω–æ—Ä–º–∞–ª—å–Ω–æ–≥–æ(–±–æ–ª—å—à–µ–≥–æ –Ω–∞ 1) –∑–Ω–∞—á–µ–Ω–∏—è –º–∞—Ç—Ä–∏—Ü—ã
+
+	for (int j = 0; j < n; j++) { Matrix1[usrentr][j] = Matrix1[usrentr2][j]; Matrix1[j][usrentr] = Matrix1[usrentr2][j]; } //–¶–∏–∫–ª –¥–ª—è –ø–µ—Ä–µ–Ω–æ—Å–∫–∏ –∑–Ω–∞—á–µ–Ω–∏–π –≤ –Ω—É–∂–Ω—É—é –≤–µ—Ä—à–∏–Ω—É
+
+	for (int i = 0; i < n; i++) {
+		for (int m = 0 + pogr; m < n; m++) {
+			if (i == m || i == usrentr2 || m == usrentr2) {}
+			else if (m > usrentr2 && i < usrentr2) { Matrix3[i][m - 1] = Matrix1[i][m]; Matrix3[m - 1][i] = Matrix1[m][i]; }
+			else if (m > usrentr2 && i > usrentr2) { Matrix3[i - 1][m - 1] = Matrix1[i][m]; Matrix3[m - 1][i - 1] = Matrix1[i][m]; }
+			else { Matrix3[i][m] = Matrix1[i][m]; Matrix3[m][i] = Matrix1[m][i]; }
+		}
+		pogr++;
+	}
+	cout << endl;
+
+	n--; //–£–º–µ–Ω—å—à–∞–µ–º n –¥–ª—è –≤–∑–∞–∏–º–æ–¥–µ–π—Å—Ç–≤–∏—è —Å–æ —Å—Ç–∞—Ä–æ–π –º–∞—Ç—Ä–∏—Ü–µ–π(–Ω–∞ n-1 –∏ n-1)
+
+	Matrix1 = (int**)calloc(n, 3);
+	for (int j = 0; j < n; j++) { Matrix1[j] = (int*)calloc(n, 3); }
+
+	for (int i = 0; i < n; i++) {
+		for (int m = 0; m < n; m++) {
+			Matrix1[i][m] = Matrix3[i][m];
+			Matrix1[m][m] = 0;
+			cout << Matrix1[i][m] << " ";
+		}
+		cout << endl;
+	}
+}
+
+void Raschep() {
+
+	Matrix3 = (int**)calloc(n, 3);
+	for (int j = 0; j < n; j++) { Matrix3[j] = (int*)calloc(n, 3); }
+	//–†–∞—Å—à–∏—Ä—è–µ–º –º–∞—Ç—Ä–∏—Ü—É –Ω–∞ –æ–¥–Ω—É —Å—Ç—Ä–æ–∫—É –∏ —Å—Ç–æ–ª–±–µ—Ü
+
+	cout << "–í–≤–µ–¥–∏—Ç–µ –Ω–æ–º–µ—Ä –≤–µ—Ä—à–∏–Ω—ã, –∫–æ—Ç–æ—Ä—É—é —Ö–æ—Ç–∏—Ç–µ —Ä–∞—Å—â–µ–ø–∏—Ç—å: ";
+	cin >> usrentr;
+	usrentr--;
+	n--;//–£–º–µ–Ω—å—à–∞–µ–º n –¥–ª—è –≤–∑–∞–∏–º–æ–¥–µ–π—Å—Ç–≤–∏—è —Å–æ —Å—Ç–∞—Ä–æ–π –º–∞—Ç—Ä–∏—Ü–µ–π(–Ω–∞ n-1 –∏ n-1)
+
+	if (usrentr > n || usrentr < 0) { cout << "\n–ù–µ–∫–æ—Ä—Ä–µ–∫—Ç–Ω—ã–π –≤–≤–æ–¥. –ü–æ–≤—Ç–æ—Ä–∏—Ç–µ –ø–æ–ø—ã—Ç–∫—É." << endl; return; }
+	//–û–≥—Ä–∞–Ω–∏—á–∏–≤–∞–µ–º –≤–≤–æ–¥ –ø–æ–ª—å–∑–æ–≤–∞—Ç–µ–ª—è
+
+	for (int i = 0; i < n; i++) {
+		for (int m = 0; m < n; m++) {
+			if (i == usrentr) { Matrix3[n][m] = Matrix1[i][m]; Matrix3[m][n] = Matrix3[n][m]; }
+			else { Matrix3[i][m] = Matrix1[i][m]; Matrix3[m][i] = Matrix1[m][i]; }
+		}
+	}
+
+	Matrix3[usrentr][n] = 1;
+	Matrix3[n][usrentr] = 1;
+	//–£ —Ä–∞—Å—â–µ–ø–ª—è–µ–º—ã—Ö –≤–µ—Ä—à–∏–Ω –¥–æ–ª–∂–Ω–æ –±—ã—Ç—å —Å–æ–µ–¥–∏–Ω—è—é—â–µ–µ —Ä–µ–±—Ä–æ
+
+	n++; //–í–æ–∑–≤—Ä–∞—â–∞–µ–º n –¥–æ –Ω–æ—Ä–º–∞–ª—å–Ω–æ–≥–æ(–±–æ–ª—å—à–µ–≥–æ –Ω–∞ 1) –∑–Ω–∞—á–µ–Ω–∏—è –º–∞—Ç—Ä–∏—Ü—ã
+	Matrix1 = (int**)calloc(n, 3);
+	for (int j = 0; j < n; j++) { Matrix1[j] = (int*)calloc(n, 3); }
+
+	for (int i = 0; i < n; i++) {
+		for (int m = 0; m < n; m++) {
+			Matrix1[i][m] = Matrix3[i][m];
+			Matrix1[m][m] = 0;
+			cout << Matrix1[i][m] << " ";
+		}
+		cout << endl;
+	}
+	cout << "\n–í–µ—Ä—à–∏–Ω–∞ " << usrentr + 1 << " –±—ã–ª–∞ —Ä–∞—Å—â–µ–ø–ª–µ–Ω–∞ –≤ –≤–µ—Ä—à–∏–Ω—É " << n << endl;
+}
 
 int main() {
 
 	setlocale(LC_ALL, "Rus");
 	srand(time(0));
 
-	//«‡‰‡ÌËÂ 1//
+	//–ó–∞–¥–∞–Ω–∏–µ 1//
 
-	cout << "¬‚Â‰ËÚÂ ‡ÁÏÂÌÓÒÚ¸ Ï‡ÚËˆ: ";
+	cout << "–í–≤–µ–¥–∏—Ç–µ —Ä–∞–∑–º–µ—Ä–Ω–æ—Å—Ç—å –º–∞—Ç—Ä–∏—Ü—ã: ";
 	cin >> n;
 
-	Matrix1 = (int**)calloc(n, 3);
-	Matrix2 = (int**)calloc(n, 3);
+	if (n <= 0) { cout << "\n–ù–µ–∫–æ—Ä—Ä–µ–∫—Ç–Ω—ã–π –≤–≤–æ–¥. –ü–æ–≤—Ç–æ—Ä–∏—Ç–µ –ø–æ–ø—ã—Ç–∫—É.\n"; return 0; } //–û–≥—Ä–∞–Ω–∏—á–∏—Ç–µ–ª—å –Ω–∞ –≤–≤–æ–¥
 
-	for (int j = 0; j < n; j++) {
-		Matrix1[j] = (int*)calloc(n, 3);
-		Matrix2[j] = (int*)calloc(n, 3);
-	}
+	Matrix1 = (int**)calloc(n, 3);
+	for (int j = 0; j < n; j++) { Matrix1[j] = (int*)calloc(n, 3); }
 	cout.precision(3 * n);
 
 	for (int i = 0; i < n; i++) {
@@ -34,173 +175,58 @@ int main() {
 			Matrix1[i][m] = 0 + rand() % 2;
 			Matrix1[m][i] = Matrix1[i][m];
 			Matrix1[i][i] = 0;
-
-			Matrix2[i][m] = 0 + rand() % 2;
-			Matrix2[m][i] = Matrix2[i][m];
-			Matrix2[i][i] = 0;
 		}
 		pogr++;
 	}
 
-	cout << "\nÃ‡ÚËˆ‡ π1:" << endl;
-	for (int i = 0; i < n; i++) {
-		for (int m = 0; m < n; m++) {
-			cout << Matrix1[i][m] << " ";
-		}
-		cout << endl;
-	}
+	//–ó–∞–¥–∞–Ω–∏–µ 2//
 
-	cout << "\nÃ‡ÚËˆ‡ π2:" << endl;
-	for (int i = 0; i < n; i++) {
-		for (int m = 0; m < n; m++) {
-			cout << Matrix2[i][m] << " ";
-		}
-		cout << endl;
-	}
+	while (choose != 4) {
 
-	//«‡‰‡ÌËÂ 2//
+		system("cls");
 
-	cout << "\n1.ŒÚÓÊ‰ÂÒÚ‚ËÚ¸ ‚Â¯ËÌ˚" << endl;
-	cout << "2.—ÚˇÌÛÚ¸ ∏·‡" << endl;
-	cout << "3.–‡Ò˘ÂÔÎÂÌËÂ ‚Â¯ËÌ˚\n" << endl;
-	cout << "\n¬˚·ÂËÚÂ ÓÔÂ‡ˆË˛ ‰Îˇ ‚˚ÔÓÎÌÂÌËˇ: ";
-
-	cin >> choose;
-
-	switch (choose) {
-
-	case 1://ŒÚÓÊ‰ÂÒÚ‚ÎÂÌËÂ ‚Â¯ËÌ
-		Matrix3 = (int**)calloc(n - 1, 3);
-
-		pogr = 0;
-
-		for (int j = 0; j < n - 1; j++) { Matrix3[j] = (int*)calloc(n - 1, 3); }
-
-		for (int i = 0; i < n - 1; i++) {
-			for (int m = 0; m < n - 1; m++) {
-				Matrix3[i][m] = 2;
-				Matrix3[m][m] = 0;
-			}
-			cout << endl;
-		}
-
-		cout << "¬‚Â‰ËÚÂ ÌÓÏÂ‡ ÓÚÓÊ‰ÂÒÚ‚ÎˇÂÏ˚ı ‚Â¯ËÌ: \n";
-		cout << "œÂ‚‡ˇ: ";
-		cin >> usrentr;
-		cout << "¬ÚÓ‡ˇ: ";
-		cin >> usrentr2;
-
-		usrentr--;
-		usrentr2--;
-
-		for (int j = 0; j < n; j++) { Matrix1[usrentr][j] = Matrix1[usrentr2][j]; Matrix1[j][usrentr] = Matrix1[usrentr2][j]; } //÷ËÍÎ ‰Îˇ ÔÂÂÌÓÒÍË ÁÌ‡˜ÂÌËÈ ‚ ÌÛÊÌÛ˛ ‚Â¯ËÌÛ
-
+		cout << "\n–ú–∞—Ç—Ä–∏—Ü–∞ ‚Ññ1:" << endl;
 		for (int i = 0; i < n; i++) {
-			for (int m = 0 + pogr; m < n; m++) {
-				if (i == m || i == usrentr2 || m == usrentr2) {}
-				else if (m > usrentr2 && i < usrentr2) { Matrix3[i][m - 1] = Matrix1[i][m]; Matrix3[m - 1][i] = Matrix1[m][i]; }
-				else if (m > usrentr2 && i > usrentr2) { Matrix3[i - 1][m - 1] = Matrix1[i][m]; Matrix3[m - 1][i - 1] = Matrix1[i][m]; }
-				else { Matrix3[i][m] = Matrix1[i][m]; Matrix3[m][i] = Matrix1[m][i]; }
-			}
-			pogr++;
-		}
-		cout << endl;
-
-		for (int i = 0; i < n - 1; i++) {
-			for (int m = 0; m < n - 1; m++) {
-				cout << Matrix3[i][m] << " ";
-			}
-			cout << endl;
-		}
-		_getch();
-		break;
-
-	case 2://—Úˇ„Ë‚‡ÌËÂ Â·‡
-
-		Matrix3 = (int**)calloc(n - 1, 3);
-
-		pogr = 0;
-
-		for (int j = 0; j < n - 1; j++) { Matrix3[j] = (int*)calloc(n - 1, 3); }
-
-		for (int i = 0; i < n - 1; i++) {
-			for (int m = 0; m < n - 1; m++) {
-				Matrix3[i][m] = 2;
-				Matrix3[m][m] = 0;
-			}
+			for (int m = 0; m < n; m++) { cout << Matrix1[i][m] << " "; }
 			cout << endl;
 		}
 
-		cout << "¬‚Â‰ËÚÂ ÌÓÏÂ‡ ÒÚˇ„Ë‚‡ÂÏ˚ı ‚Â¯ËÌ: \n";
-		cout << "œÂ‚‡ˇ: ";
-		cin >> usrentr;
-		cout << "¬ÚÓ‡ˇ: ";
-		cin >> usrentr2;
-		usrentr--;
-		usrentr2--;
+		cout << "\n1.–û—Ç–æ–∂–¥–µ—Å—Ç–≤–∏—Ç—å –≤–µ—Ä—à–∏–Ω—ã" << endl;
+		cout << "2.–°—Ç—è–Ω—É—Ç—å —Ä—ë–±—Ä–∞" << endl;
+		cout << "3.–†–∞—Å—â–µ–ø–ª–µ–Ω–∏–µ –≤–µ—Ä—à–∏–Ω—ã" << endl;
+		cout << "4.–í—ã—Ö–æ–¥\n" << endl;
+		cout << "\n–í—ã–±–µ—Ä–∏—Ç–µ –æ–ø–µ—Ä–∞—Ü–∏—é –¥–ª—è –≤—ã–ø–æ–ª–Ω–µ–Ω–∏—è: ";
 
-		for (int j = 0; j < n; j++) { Matrix1[usrentr][j] = Matrix1[usrentr2][j]; Matrix1[j][usrentr] = Matrix1[usrentr2][j]; } //÷ËÍÎ ‰Îˇ ÔÂÂÌÓÒÍË ÁÌ‡˜ÂÌËÈ ‚ ÌÛÊÌÛ˛ ‚Â¯ËÌÛ
+		cin >> choose;
 
-		for (int i = 0; i < n; i++) {
-			for (int m = 0 + pogr; m < n; m++) {
-				if (i == m || i == usrentr2 || m == usrentr2) {}
-				else if (m > usrentr2 && i < usrentr2) { Matrix3[i][m - 1] = Matrix1[i][m]; Matrix3[m - 1][i] = Matrix1[m][i]; }
-				else if (m > usrentr2 && i > usrentr2) { Matrix3[i - 1][m - 1] = Matrix1[i][m]; Matrix3[m - 1][i - 1] = Matrix1[i][m]; }
-				else { Matrix3[i][m] = Matrix1[i][m]; Matrix3[m][i] = Matrix1[m][i]; }
-			}
-			pogr++;
+		switch (choose) {
+
+		case 1://–û—Ç–æ–∂–¥–µ—Å—Ç–≤–ª–µ–Ω–∏–µ –≤–µ—Ä—à–∏–Ω
+			n--;
+			Otogdestvlenie();
+			_getch();
+			break;
+
+		case 2://–°—Ç—è–≥–∏–≤–∞–Ω–∏–µ —Ä–µ–±—Ä–∞
+			n--;
+			Stuagivanie();
+			_getch();
+			break;
+
+		case 3: //–†–∞—Å—â–µ–ø–ª–µ–Ω–∏–µ –≤–µ—Ä—à–∏–Ω—ã
+			n++;
+			Raschep();
+			_getch();
+			break;
+
+		case 4:
+			cout << "\n–í—ã—Ö–æ–¥ –∏–∑ –ø—Ä–æ–≥—Ä–∞–º–º—ã." << endl;
+			break;
+
+		default:
+			cout << "\n–ù–µ–∫–æ—Ä—Ä–µ–∫—Ç–Ω—ã–π –≤–≤–æ–¥. –ü–æ–≤—Ç–æ—Ä–∏—Ç–µ –ø–æ–ø—ã—Ç–∫—É." << endl;
+			break;
 		}
-		cout << endl;
-
-		for (int i = 0; i < n - 1; i++) {
-			for (int m = 0; m < n - 1; m++) {
-				cout << Matrix3[i][m] << " ";
-			}
-			cout << endl;
-		}
-		break;
-
-	case 3: //–‡Ò˘ÂÔÎÂÌËÂ ‚Â¯ËÌ˚
-		Matrix3 = (int**)calloc(n + 1, 3);
-
-		for (int j = 0; j < n + 1; j++) {
-			Matrix3[j] = (int*)calloc(n + 1, 3);
-		}
-		//–‡Ò¯ËˇÂÏ Ï‡ÚËˆÛ Ì‡ Ó‰ÌÛ ÒÚÓÍÛ Ë ÒÚÓÎ·Âˆ
-
-		cout << "¬‚Â‰ËÚÂ ÌÓÏÂ ‚Â¯ËÌ˚, ÍÓÚÓÛ˛ ıÓÚËÚÂ ‡Ò˘ÂÔËÚ¸: ";
-		cin >> usrentr;
-		usrentr--;
-
-		if (usrentr > n || usrentr < 0) { cout << "\nÕÂÍÓÂÍÚÌ˚È ‚‚Ó‰. œÓ‚ÚÓËÚÂ ÔÓÔ˚ÚÍÛ." << endl; break; }
-		//Œ„‡ÌË˜Ë‚‡ÂÏ ‚‚Ó‰ ÔÓÎ¸ÁÓ‚‡ÚÂÎˇ
-
-		for (int i = 0; i < n; i++) {
-			for (int m = 0; m < n; m++) {
-				if (i == usrentr) { Matrix3[n][m] = Matrix1[i][m]; Matrix3[m][n] = Matrix3[n][m]; }
-				else { Matrix3[i][m] = Matrix1[i][m]; Matrix3[m][i] = Matrix1[m][i]; }
-			}
-		}
-
-		Matrix3[usrentr][n] = 1;
-		Matrix3[n][usrentr] = 1;
-		//” ‡Ò˘ÂÔÎˇÂÏ˚ı ‚Â¯ËÌ ‰ÓÎÊÌÓ ·˚Ú¸ ÒÓÂ‰ËÌˇ˛˘ÂÂ Â·Ó
-
-		for (int i = 0; i < n + 1; i++) {
-			for (int m = 0; m < n + 1; m++) {
-				Matrix3[m][m] = 0;
-				cout << Matrix3[i][m] << " ";
-			}
-			cout << endl;
-		}
-		
-		cout << "\n¬Â¯ËÌ‡ " << usrentr + 1 << " ·˚Î‡ ‡Ò˘ÂÔÎÂÌ‡ ‚ ‚Â¯ËÌÛ " << n + 1 << endl;
-		break;
-	
-	default:
-		cout << "\nÕÂÍÓÂÍÚÌ˚È ‚‚Ó‰. œÓ‚ÚÓËÚÂ ÔÓÔ˚ÚÍÛ." << endl;
-		break;
 	}
-
 	return 0;
 }
