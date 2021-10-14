@@ -10,15 +10,84 @@ int pogr = 0;
 
 int choose = 0, ** Matrix3 = NULL;
 
+void Obiedinenie() {
+	cout << "ÐžÐ±ÑŠÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ðµ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ† 1 Ð¸ 2:" << endl;
+	//ÐžÐ±ÑŠÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ðµ
+	for (int i = 0; i < n; i++) {
+		for (int m = 0; m < n; m++) {
+			if (Matrix1[i][m] == 0 && Matrix2[i][m] == 0) {
+				Matrix3[i][m] = 0;
+			}
+			else {
+				Matrix3[i][m] = 1;
+			}
+		}
+	}
+
+	for (int i = 0; i < n; i++) {
+		for (int m = 0; m < n; m++) {
+			cout << Matrix3[i][m] << " ";
+		}
+		cout << endl;
+	}
+}
+
+void Peresechenie() {
+	cout << "ÐŸÐµÑ€ÐµÑÐµÑ‡ÐµÐ½Ð¸Ðµ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ† 1 Ð¸ 2:" << endl;
+	//ÐŸÐµÑ€ÐµÑÐµÑ‡ÐµÐ½Ð¸Ðµ
+	for (int i = 0; i < n; i++) {
+		for (int m = 0; m < n; m++) {
+			if (Matrix1[i][m] == 1 && Matrix2[i][m] == 1) {
+				Matrix3[i][m] = 1;
+			}
+			else {
+				Matrix3[i][m] = 0;
+			}
+		}
+	}
+
+	for (int i = 0; i < n; i++) {
+		for (int m = 0; m < n; m++) {
+			cout << Matrix3[i][m] << " ";
+		}
+		cout << endl;
+	}
+}
+
+void ShapeSumm() {
+	cout << "ÐšÐ¾Ð»ÑŒÑ†ÐµÐ²Ð°Ñ ÑÑƒÐ¼Ð¼Ð° Ð¼Ð°Ñ‚Ñ€Ð¸Ñ† 1 Ð¸ 2:" << endl;
+	//ÐšÐ¾Ð»ÑŒÑ†ÐµÐ²Ð°Ñ ÑÑƒÐ¼Ð¼Ð°
+	for (int i = 0; i < n; i++) {
+		for (int m = 0; m < n; m++) {
+			if ((Matrix1[i][m] == 0 && Matrix2[i][m] == 0) || (Matrix1[i][m] == 1 && Matrix2[i][m] == 1)) {
+				Matrix3[i][m] = 0;
+			}
+			else {
+				Matrix3[i][m] = 1;
+			}
+		}
+	}
+
+	for (int i = 0; i < n; i++) {
+		for (int m = 0; m < n; m++) {
+			cout << Matrix3[i][m] << " ";
+		}
+		cout << endl;
+	}
+
+}
+
 int main() {
 
 	setlocale(LC_ALL, "Rus");
 	srand(time(0));
 
-	//Çàäàíèå 1//
+	//Ð—Ð°Ð´Ð°Ð½Ð¸Ðµ 1//
 
-	cout << "Ââåäèòå ðàçìåðíîñòü ìàòðèö: ";
+	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ€Ð°Ð·Ð¼ÐµÑ€Ð½Ð¾ÑÑ‚ÑŒ Ð¼Ð°Ñ‚Ñ€Ð¸Ñ†: ";
 	cin >> n;
+
+	if (n <= 0) { cout << "\nÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´. ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚Ðµ Ð¿Ð¾Ð¿Ñ‹Ñ‚ÐºÑƒ" << endl; return 0; }
 
 	Matrix1 = (int**)calloc(n, 3);
 	Matrix2 = (int**)calloc(n, 3);
@@ -27,6 +96,7 @@ int main() {
 		Matrix1[j] = (int*)calloc(n, 3);
 		Matrix2[j] = (int*)calloc(n, 3);
 	}
+
 	cout.precision(3 * n);
 
 	for (int i = 0; i < n; i++) {
@@ -42,115 +112,66 @@ int main() {
 		pogr++;
 	}
 
-	cout << "\nÌàòðèöà ¹1:" << endl;
-	for (int i = 0; i < n; i++) {
-		for (int m = 0; m < n; m++) {
-			cout << Matrix1[i][m] << " ";
+	//Ð—Ð°Ð´Ð°Ð½Ð¸Ðµ 3//
+
+	while (choose != 4) {
+
+		system("cls");
+
+		cout << "\nÐœÐ°Ñ‚Ñ€Ð¸Ñ†Ð° â„–1:" << endl;
+		for (int i = 0; i < n; i++) {
+			for (int m = 0; m < n; m++) {
+				cout << Matrix1[i][m] << " ";
+			}
+			cout << endl;
 		}
+
+		cout << "\nÐœÐ°Ñ‚Ñ€Ð¸Ñ†Ð° â„–2:" << endl;
+		for (int i = 0; i < n; i++) {
+			for (int m = 0; m < n; m++) {
+				cout << Matrix2[i][m] << " ";
+			}
+			cout << endl;
+		}
+
+		cout << "\n1.ÐžÐ±ÑŠÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ðµ" << endl;
+		cout << "2.ÐŸÐµÑ€ÐµÑÐµÑ‡ÐµÐ½Ð¸Ðµ" << endl;
+		cout << "3.ÐšÐ¾Ð»ÑŒÑ†ÐµÐ²Ð°Ñ ÑÑƒÐ¼Ð¼Ð°" << endl;
+		cout << "4.Ð’Ñ‹Ñ…Ð¾Ð´\n" << endl;
+		cout << "Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸ÑŽ Ð´Ð»Ñ Ð²Ñ‹Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ñ: ";
+		cin >> choose;
 		cout << endl;
-	}
 
-	cout << "\nÌàòðèöà ¹2:" << endl;
-	for (int i = 0; i < n; i++) {
-		for (int m = 0; m < n; m++) {
-			cout << Matrix2[i][m] << " ";
-		}
-		cout << endl;
-	}
-
-	//Çàäàíèå 3//
-
-	cout << "\n1.Îáúåäèíåíèå" << endl;
-	cout << "2.Ïåðåñå÷åíèå" << endl;
-	cout << "3.Êîëüöåâàÿ ñóììà\n" << endl;
-	cout << "Âûáåðèòå îïåðàöèþ äëÿ âûïîëíåíèÿ: ";
-	cin >> choose;
-	cout << endl;
-
-	switch (choose) {
-
-	case 1://Îáúåäèíåíèå
 		Matrix3 = (int**)calloc(n, 3);
-
 		for (int j = 0; j < n; j++) { Matrix3[j] = (int*)calloc(n, 3); }
-		cout << "Îáúåäèíåíèå ìàòðèö 1 è 2:" << endl;
-		//Îáúåäèíåíèå
-		for (int i = 0; i < n; i++) {
-			for (int m = 0; m < n; m++) {
-				if (Matrix1[i][m] == 0 && Matrix2[i][m] == 0) {
-					Matrix3[i][m] = 0;
-				}
-				else {
-					Matrix3[i][m] = 1;
-				}
-			}
+
+		switch (choose) {
+
+		case 1://ÐžÐ±ÑŠÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ðµ
+			Obiedinenie();
+			_getch();
+			break;
+
+		case 2://ÐŸÐµÑ€ÐµÑÐµÑ‡ÐµÐ½Ð¸Ðµ
+			Peresechenie();
+			_getch();
+			break;
+
+		case 3: //ÐšÐ¾Ð»ÑŒÑ†ÐµÐ²Ð°Ñ ÑÑƒÐ¼Ð¼Ð°
+			ShapeSumm();
+			_getch();
+			break;
+
+		case 4:
+			cout << "\nÐ’Ñ‹Ñ…Ð¾Ð´ Ð¸Ð· Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ñ‹" << endl;
+			break;
+
+		default:
+			cout << "\nÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´. ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚Ðµ Ð¿Ð¾Ð¿Ñ‹Ñ‚ÐºÑƒ." << endl;
+			break;
 		}
-
-		for (int i = 0; i < n; i++) {
-			for (int m = 0; m < n; m++) {
-				cout << Matrix3[i][m] << " ";
-			}
-			cout << endl;
-		}
-
-		break;
-		
-	case 2://Ïåðåñå÷åíèå
-		Matrix3 = (int**)calloc(n, 3);
-
-		for (int j = 0; j < n; j++) { Matrix3[j] = (int*)calloc(n, 3); }
-		cout << "Ïåðåñå÷åíèå ìàòðèö 1 è 2:" << endl;
-		//Ïåðåñå÷åíèå
-		for (int i = 0; i < n; i++) {
-			for (int m = 0; m < n; m++) {
-				if (Matrix1[i][m] == 1 && Matrix2[i][m] == 1) {
-					Matrix3[i][m] = 1;
-				}
-				else {
-					Matrix3[i][m] = 0;
-				}
-			}
-		}
-
-		for (int i = 0; i < n; i++) {
-			for (int m = 0; m < n; m++) {
-				cout << Matrix3[i][m] << " ";
-			}
-			cout << endl;
-		}
-
-		break;
-
-	case 3: //Êîëüöåâàÿ ñóììà
-		Matrix3 = (int**)calloc(n, 3);
-
-		for (int j = 0; j < n; j++) { Matrix3[j] = (int*)calloc(n, 3); }
-		cout << "Êîëüöåâàÿ ñóììà ìàòðèö 1 è 2:" << endl;
-		//Êîëüöåâàÿ ñóììà
-		for (int i = 0; i < n; i++) {
-			for (int m = 0; m < n; m++) {
-				if ((Matrix1[i][m] == 0 && Matrix2[i][m] == 0) || (Matrix1[i][m] == 1 && Matrix2[i][m] == 1)) {
-					Matrix3[i][m] = 0;
-				}
-				else {
-					Matrix3[i][m] = 1;
-				}
-			}
-		}
-
-		for (int i = 0; i < n; i++) {
-			for (int m = 0; m < n; m++) {
-				cout << Matrix3[i][m] << " ";
-			}
-			cout << endl;
-		}
-
-		break;
-
-	default:
-		cout << "\nÍåêîððåêòíûé ââîä. Ïîâòîðèòå ïîïûòêó." << endl;
-		break;
 	}
 
 	return 0;
 }
+
