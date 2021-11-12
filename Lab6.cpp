@@ -11,20 +11,21 @@ using namespace std;
 int i, num = 0;
 int* vis = NULL, n, ** p = NULL;
 int pogr = 0;
+int Levo = 0, Control = 0;
 
-//Вершина / След.элемент; Номер
+//Р’РµСЂС€РёРЅР° / РЎР»РµРґ.СЌР»РµРјРµРЅС‚; РќРѕРјРµСЂ
 struct SmegnElem {
 	SmegnElem* Nextelem;
 	int num;
 };
 
-//Список смежности
+//РЎРїРёСЃРѕРє СЃРјРµР¶РЅРѕСЃС‚Рё
 struct SmegnList {
 	SmegnElem* First;
 	int Colo;
 } **SpecMatrix = NULL, * SpecMatrixRezerve = NULL;
 
-//Создание списка смежности
+//РЎРѕР·РґР°РЅРёРµ СЃРїРёСЃРєР° СЃРјРµР¶РЅРѕСЃС‚Рё
 SmegnList* CreateList() {
 	SmegnList* groups = (SmegnList*)malloc(sizeof(SmegnList));
 	groups->First = NULL;
@@ -32,19 +33,19 @@ SmegnList* CreateList() {
 	return groups;
 }
 
-//Добавление элемента в список смежности
+//Р”РѕР±Р°РІР»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р° РІ СЃРїРёСЃРѕРє СЃРјРµР¶РЅРѕСЃС‚Рё
 void AddSmegElem(SmegnList* group, int Chis) {
 	SmegnElem* newItem = (SmegnElem*)malloc(sizeof(SmegnElem));
 	newItem->Nextelem = NULL;
 	newItem->num = Chis;
 
-	if (group->Colo == 0) {                          //При отсутствии элементов записываем как первый
+	if (group->Colo == 0) {                          //РџСЂРё РѕС‚СЃСѓС‚СЃС‚РІРёРё СЌР»РµРјРµРЅС‚РѕРІ Р·Р°РїРёСЃС‹РІР°РµРј РєР°Рє РїРµСЂРІС‹Р№
 		group->First = newItem;
 		group->Colo++;
 		return;
 	}
 
-	SmegnElem* last = group->First;                      //При наличии других элементов начинаем перебор
+	SmegnElem* last = group->First;                      //РџСЂРё РЅР°Р»РёС‡РёРё РґСЂСѓРіРёС… СЌР»РµРјРµРЅС‚РѕРІ РЅР°С‡РёРЅР°РµРј РїРµСЂРµР±РѕСЂ
 
 	while (last->Nextelem != NULL) {
 		last = last->Nextelem;
@@ -54,17 +55,17 @@ void AddSmegElem(SmegnList* group, int Chis) {
 
 }
 
-//Отрисовка списка смежности
+//РћС‚СЂРёСЃРѕРІРєР° СЃРїРёСЃРєР° СЃРјРµР¶РЅРѕСЃС‚Рё
 void PrintSmegElem(SmegnList* groups) {
 
-	if (groups->Colo == 0) {                                        //При размере = 0, у нас нет данных
-		cout << "Список пуст" << endl;
+	if (groups->Colo == 0) {                                        //РџСЂРё СЂР°Р·РјРµСЂРµ = 0, Сѓ РЅР°СЃ РЅРµС‚ РґР°РЅРЅС‹С…
+		cout << "РЎРїРёСЃРѕРє РїСѓСЃС‚" << endl;
 		return;
 	}
 
 	SmegnElem* current = groups->First;
 
-	while (current != NULL) {                                       //Перебор структуры до последнего элемента(с выводом)
+	while (current != NULL) {                                       //РџРµСЂРµР±РѕСЂ СЃС‚СЂСѓРєС‚СѓСЂС‹ РґРѕ РїРѕСЃР»РµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚Р°(СЃ РІС‹РІРѕРґРѕРј)
 		int value = current->num;
 		cout << value << " ";
 		current = current->Nextelem;
@@ -72,38 +73,27 @@ void PrintSmegElem(SmegnList* groups) {
 	cout << endl;
 }
 
-//Поиск уровней
+//РџРѕРёСЃРє СѓСЂРѕРІРЅРµР№
 void BFSD(int v, int** p) {
-	for (int i = 0; i < n; i++) { vis[i] = -1; } //Обнуление проходимых вершин
 
 	queue <int> q;
-	q.push(v);
-	vis[v] = 0;
-	int Level = 1, Levo = 0, Control = 0;
+	q.push(v); 
+	vis[v] = 0; 
 
-	while (!q.empty()) {
-		v = q.front();
-		q.pop();
+	while (!q.empty()) { 
+		v = q.front(); 
+		q.pop(); 
 
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < n; i++) { 
 
-			if (vis[i] == -1 && p[i][v] == 1) {
-				q.push(i);
+			if (vis[i] == -1 && p[i][v] == 1) { 
+				q.push(i); 
 				vis[i] = vis[v] + 1;
 			}
 		}
 	}
 	cout << endl;
-
-	while (Control != n) {
-		for (int i = 0; i < n; i++) {
-			if (vis[i] == Levo) {
-				cout << "Вершина " << i + 1 << " расположена на уровне " << Levo << endl;
-				Control++;
-			}
-		}
-		Levo++;
-	}
+	
 }
 
 int main() {
@@ -111,7 +101,7 @@ int main() {
 	setlocale(LC_ALL, "Rus");
 	srand(time(0));
 
-	cout << "Введите размерность графа:";
+	cout << "Р’РІРµРґРёС‚Рµ СЂР°Р·РјРµСЂРЅРѕСЃС‚СЊ РіСЂР°С„Р°:";
 	cin >> n;
 
 
@@ -127,8 +117,8 @@ int main() {
 	for (i = 0; i < n; i++) {
 		p[i] = (int*)calloc(n, 3);
 		vis[i] = 0;
-		SpecMatrix[i] = CreateList();      //Создаём список смежности
-		AddSmegElem(SpecMatrix[i], i + 1); //Вставляем в начало каждого списка смежности номер отвечающей вершины
+		SpecMatrix[i] = CreateList();      //РЎРѕР·РґР°С‘Рј СЃРїРёСЃРѕРє СЃРјРµР¶РЅРѕСЃС‚Рё
+		AddSmegElem(SpecMatrix[i], i + 1); //Р’СЃС‚Р°РІР»СЏРµРј РІ РЅР°С‡Р°Р»Рѕ РєР°Р¶РґРѕРіРѕ СЃРїРёСЃРєР° СЃРјРµР¶РЅРѕСЃС‚Рё РЅРѕРјРµСЂ РѕС‚РІРµС‡Р°СЋС‰РµР№ РІРµСЂС€РёРЅС‹
 	}
 
 	for (int i = 0; i < n; i++) {
@@ -140,21 +130,34 @@ int main() {
 		pogr++;
 	}
 
-	for (int i = 0; i < n; i++) {           //Создание списков смежности из матрицы смежности
+	for (int i = 0; i < n; i++) {           //РЎРѕР·РґР°РЅРёРµ СЃРїРёСЃРєРѕРІ СЃРјРµР¶РЅРѕСЃС‚Рё РёР· РјР°С‚СЂРёС†С‹ СЃРјРµР¶РЅРѕСЃС‚Рё
 		for (int m = 0; m < n; m++) { if (p[i][m] == 1) { AddSmegElem(SpecMatrix[i], m + 1); } }
 	}
 
-	cout << "\nМатрица 1:" << endl;
+	cout << "\nРњР°С‚СЂРёС†Р° 1:" << endl;
 	for (int i = 0; i < n; i++) {
 		for (int m = 0; m < n; m++) { cout << p[i][m] << " "; }
 		cout << endl;
 	}
 
-	cout << "\nСписки смежности для Мартицы №1:" << endl; //Отрисовка списков смежности
+	cout << "\nРЎРїРёСЃРєРё СЃРјРµР¶РЅРѕСЃС‚Рё РґР»СЏ РњР°СЂС‚РёС†С‹ в„–1:" << endl; //РћС‚СЂРёСЃРѕРІРєР° СЃРїРёСЃРєРѕРІ СЃРјРµР¶РЅРѕСЃС‚Рё
 	for (int i = 0; i < n; i++) { PrintSmegElem(SpecMatrix[i]); }
 
-	cout << "Длина пути(По матрице / Очередь): ";
+	cout << "Р”Р»РёРЅР° РїСѓС‚Рё(РџРѕ РјР°С‚СЂРёС†Рµ / РћС‡РµСЂРµРґСЊ): ";
+
+	for (int i = 0; i < n; i++) { vis[i] = -1; } //РћР±РЅСѓР»РµРЅРёРµ РїСЂРѕС…РѕРґРёРјС‹С… РІРµСЂС€РёРЅ
+
 	BFSD(0, p);
+
+	while (Control != n) {
+		for (int i = 0; i < n; i++) {
+			if (vis[i] == Levo) {
+				cout << "Р’РµСЂС€РёРЅР° " << i + 1 << " СЂР°СЃРїРѕР»РѕР¶РµРЅР° РЅР° СѓСЂРѕРІРЅРµ " << Levo << endl;
+				Control++;
+			}
+		}
+		Levo++;
+	}
 	cout << endl;
 
 	return 0;
